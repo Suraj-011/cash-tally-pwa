@@ -1,9 +1,9 @@
-const CACHE_NAME = 'cash-tally-v31';
+const CACHE_NAME = 'cash-tally-v33';
 const ASSETS_TO_CACHE = [
-  '.https://cash-tally.blogspot.com',
-  './manifest.json',
-  './icon.svg',
-  './suraj-paul.jpg',
+  'https://cash-tally.blogspot.com/',
+  'https://Suraj-011.github.io/cash-tally-pwa/manifest.json',
+  'https://Suraj-011.github.io/cash-tally-pwa/icon.svg',
+  'https://Suraj-011.github.io/cash-tally-pwa/suraj-paul.jpg',
   'https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
   'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js',
@@ -64,10 +64,8 @@ self.addEventListener('fetch', (event) => {
         const responseToCache = networkResponse.clone();
         caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseToCache));
         return networkResponse;
-      }).catch(() => {
-        if (event.request.headers.get('accept')?.includes('text/html')) {
-          return caches.match('./index.html');
-        }
+      }).catch((err) => {
+        console.warn('[Service Worker] Fetch failed:', err);
       });
     })
   );
