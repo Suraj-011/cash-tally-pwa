@@ -1,7 +1,6 @@
 const CACHE_NAME = 'cash-tally-v31';
 const ASSETS_TO_CACHE = [
-  './',
-  './index.html',
+  '.https://cash-tally.blogspot.com',
   './manifest.json',
   './icon.svg',
   './suraj-paul.jpg',
