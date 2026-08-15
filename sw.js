@@ -1,7 +1,8 @@
-const CACHE_NAME = 'cash-tally-v33';
+const CACHE_NAME = 'cash-tally-v34';
 const ASSETS_TO_CACHE = [
   'https://cash-tally.blogspot.com/',
   'https://Suraj-011.github.io/cash-tally-pwa/manifest.json',
+  'https://Suraj-011.github.io/cash-tally-pwa/icon.png',
   'https://Suraj-011.github.io/cash-tally-pwa/icon.svg',
   'https://Suraj-011.github.io/cash-tally-pwa/suraj-paul.jpg',
   'https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap',
