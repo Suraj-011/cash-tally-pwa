@@ -5,9 +5,16 @@
   "start_url": "https://cash-tally.blogspot.com/",
   "scope": "https://cash-tally.blogspot.com/",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#ffffff",
   "theme_color": "#2563eb",
   "icons": [
+    {
+      "src": "https://Suraj-011.github.io/cash-tally-pwa/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
     {
       "src": "https://Suraj-011.github.io/cash-tally-pwa/icon.svg",
       "sizes": "512x512",
