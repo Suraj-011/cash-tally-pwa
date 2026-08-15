@@ -1,29 +1,16 @@
 {
+  "name": "Indian Cash Calculator Pro",
   "short_name": "Cash Tally",
-  "name": "Cash Calculator Pro - Indian Currency Tally",
-  "description": "Fast, accurate Indian currency denomination calculator & tally tool",
-  "start_url": "./index.html",
+  "description": "Fast & Accurate Indian Currency Calculator & Bank Scroll",
+  "start_url": "https://cash-tally.blogspot.com/",
   "display": "standalone",
-  "background_color": "#f1f5f9",
+  "background_color": "#ffffff",
   "theme_color": "#2563eb",
-  "orientation": "portrait",
   "icons": [
     {
-      "src": "icon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "icon-512.png",
+      "src": "https://Suraj-011.github.io/cash-tally-pwa/icon.svg",
       "sizes": "512x512",
-      "type": "image/png",
+      "type": "image/svg+xml",
       "purpose": "any maskable"
     }
   ]
