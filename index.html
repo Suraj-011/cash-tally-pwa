@@ -1,0 +1,3414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Indian Cash Calculator Pro - Online Currency Tally & Bank Scroll</title>
+
+  <!-- Primary SEO Meta Tags -->
+  <meta name="description" content="Fast, accurate Indian Cash Calculator for bank cashiers, shopkeepers, and businesses. Calculate Rupee note denominations (₹500, ₹200, ₹100, etc.), packet & bundle mode (100s/1000s), generate Finacle bank scroll, export PDF & Excel reports.">
+  <meta name="keywords" content="indian cash calculator, cash tally online, rupee note counter, cash denomination calculator, bank cash scroll, finacle scroll generator, sbi cash counter, indian currency counter app, packet bundle cash counter">
+  <meta name="author" content="Cash Calculator Pro">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://cash-tally.blogspot.com/">
+
+  <!-- Open Graph / Facebook / WhatsApp Meta Tags -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cash-tally.blogspot.com/">
+  <meta property="og:title" content="Indian Cash Calculator Pro - Online Currency Tally & Bank Scroll">
+  <meta property="og:description" content="Instant Indian Currency Denomination Tally & Bank Finacle Cash Scroll Generator for bank tellers, cashiers, and shopkeepers. Free, 100% private, and works offline.">
+  <meta property="og:image" content="icon.svg">
+  <meta property="og:site_name" content="Indian Cash Calculator Pro">
+  <meta property="og:locale" content="en_IN">
+
+  <!-- Twitter / X Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Indian Cash Calculator Pro - Currency Tally & Bank Scroll">
+  <meta name="twitter:description" content="Calculate Indian Rupee note denominations, packet 100s/1000s, bank scroll text, PDF/Excel export online.">
+  <meta name="twitter:image" content="icon.svg">
+
+  <!-- Schema.org JSON-LD Structured Data for Google Rich Snippets -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FinancialApplication",
+    "name": "Indian Cash Calculator Pro",
+    "operatingSystem": "All (Web, Android, iOS, Windows)",
+    "applicationCategory": "BusinessApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "INR"
+    },
+    "description": "Professional online Indian currency cash calculator and bank scroll generator for cashiers, shopkeepers, and accountants.",
+    "author": {
+      "@type": "Organization",
+      "name": "Cash Calculator Pro"
+    }
+  }
+  </script>
+
+  <!-- PWA & Mobile Meta Tags (Powered by GitHub Pages) -->
+  <link rel="manifest" href="https://Suraj-011.github.io/cash-tally-pwa/manifest.json">
+  <link rel="icon" type="image/svg+xml" href="https://Suraj-011.github.io/cash-tally-pwa/icon.svg">
+  <link rel="apple-touch-icon" href="https://Suraj-011.github.io/cash-tally-pwa/icon.svg">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Cash Tally">
+  
+  <!-- Google Fonts: Outfit & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- External Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.24/jspdf.plugin.autotable.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <style>
+    :root {
+      --primary-grad: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+      --accent-grad: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+      --bg-grad: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+      --radius-lg: 20px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f1f5f9;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.12) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(59, 130, 246, 0.12) 0px, transparent 50%);
+      background-attachment: fixed;
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 20px 12px;
+      overflow-x: hidden;
+    }
+
+    .main-content {
+      width: 100%;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* Glassmorphic Container */
+    .container {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      border-radius: var(--radius-lg);
+      box-shadow: 
+        0 20px 40px -15px rgba(15, 23, 42, 0.08),
+        0 0 0 1px rgba(15, 23, 42, 0.05);
+      padding: 28px 24px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .container h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 4px;
+      letter-spacing: -0.5px;
+    }
+
+    .sub-heading {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #64748b;
+      margin-bottom: 6px;
+      letter-spacing: 0.2px;
+    }
+
+    /* Header Top Bar & Calculator Tab Button */
+    .header-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 14px;
+      gap: 12px;
+    }
+
+    .header-title-group {
+      text-align: left;
+    }
+
+    .calc-tab-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+      color: #0f172a;
+      border: 1.5px solid #cbd5e1;
+      border-radius: var(--radius-sm);
+      padding: 9px 16px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+      transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+      white-space: nowrap;
+      margin-top: 2px;
+    }
+
+    .calc-tab-btn:hover {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      color: #ffffff;
+      border-color: #2563eb;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.25);
+    }
+
+    .calc-tab-btn:active {
+      transform: translateY(0);
+    }
+
+    [data-theme="dark"] .calc-tab-btn {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      color: #f8fafc;
+      border-color: #334155;
+    }
+
+    [data-theme="dark"] .calc-tab-btn:hover {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      color: #ffffff;
+      border-color: #3b82f6;
+    }
+
+    /* Ultra Minimalist Date & Time */
+    .minimal-datetime {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #64748b;
+      letter-spacing: 0.2px;
+    }
+
+    .dt-date-text {
+      color: #475569;
+      font-weight: 600;
+    }
+
+    .dt-pulse-dot {
+      width: 5px;
+      height: 5px;
+      background-color: #10b981;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .dt-time-text {
+      color: #0f172a;
+      font-weight: 700;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    /* Quick Calculator Modal */
+    .calc-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      padding: 16px;
+      animation: fadeInOverlay 0.2s ease-out forwards;
+    }
+
+    .calc-modal-card {
+      width: 100%;
+      max-width: 360px;
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
+      padding: 20px;
+      animation: popInCalc 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    @keyframes popInCalc {
+      0% { opacity: 0; transform: scale(0.92) translateY(10px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .calc-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .calc-modal-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .calc-modal-title i {
+      color: #2563eb;
+    }
+
+    .calc-close-btn {
+      background: none;
+      border: none;
+      font-size: 1.3rem;
+      color: #64748b;
+      cursor: pointer;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .calc-close-btn:hover {
+      background: #f1f5f9;
+      color: #ef4444;
+    }
+
+    /* Calculator Display Screen */
+    .calc-display {
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      text-align: right;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);
+    }
+
+    .calc-history {
+      font-size: 0.85rem;
+      color: #64748b;
+      min-height: 20px;
+      word-wrap: break-word;
+      font-weight: 600;
+    }
+
+    .calc-screen {
+      font-size: clamp(1.6rem, 5vw, 2.2rem);
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.2;
+      overflow-x: auto;
+      white-space: nowrap;
+      font-family: 'Outfit', sans-serif;
+      margin-top: 4px;
+    }
+
+    /* Calculator Keypad Grid */
+    .calc-keypad {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .calc-btn {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      min-height: 50px;
+      border-radius: var(--radius-sm);
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: #0f172a;
+      cursor: pointer;
+      transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .calc-btn:hover {
+      background: #f1f5f9;
+      transform: translateY(-1px);
+    }
+
+    .calc-btn:active {
+      transform: translateY(1px);
+    }
+
+    .calc-btn.op-btn {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      color: #ffffff;
+      border-color: #2563eb;
+      font-size: 1.25rem;
+    }
+
+    .calc-btn.op-btn:hover {
+      background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+    }
+
+    .calc-btn.clear-btn {
+      background: #fef2f2;
+      color: #dc2626;
+      border-color: #fca5a5;
+    }
+
+    .calc-btn.clear-btn:hover {
+      background: #fee2e2;
+    }
+
+    .calc-btn.equals-btn {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: #ffffff;
+      border-color: #059669;
+      font-size: 1.3rem;
+    }
+
+    .calc-btn.equals-btn:hover {
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    }
+
+    .calc-action-bar {
+      display: flex;
+      gap: 10px;
+      margin-top: 2px;
+    }
+
+    .calc-copy-btn {
+      flex: 1;
+      padding: 10px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 700;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: #334155;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .calc-copy-btn:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    /* Dark Mode Calculator Styling */
+    [data-theme="dark"] .calc-modal-card {
+      background: #0f172a;
+      border-color: #334155;
+    }
+
+    [data-theme="dark"] .calc-modal-title {
+      color: #f8fafc;
+    }
+
+    [data-theme="dark"] .calc-modal-title i {
+      color: #60a5fa;
+    }
+
+    [data-theme="dark"] .calc-close-btn {
+      color: #94a3b8;
+    }
+
+    [data-theme="dark"] .calc-close-btn:hover {
+      background: #1e293b;
+      color: #f87171;
+    }
+
+    [data-theme="dark"] .calc-display {
+      background: #1e293b;
+      border-color: #334155;
+    }
+
+    [data-theme="dark"] .calc-history {
+      color: #94a3b8;
+    }
+
+    [data-theme="dark"] .calc-screen {
+      color: #f8fafc;
+    }
+
+    [data-theme="dark"] .calc-btn {
+      background: #1e293b;
+      color: #f8fafc;
+      border-color: #334155;
+    }
+
+    [data-theme="dark"] .calc-btn:hover {
+      background: #334155;
+    }
+
+    [data-theme="dark"] .calc-btn.clear-btn {
+      background: rgba(220, 38, 38, 0.2);
+      color: #fca5a5;
+      border-color: rgba(239, 68, 68, 0.4);
+    }
+
+    [data-theme="dark"] .calc-copy-btn {
+      background: #1e293b;
+      color: #cbd5e1;
+      border-color: #334155;
+    }
+
+    [data-theme="dark"] .calc-copy-btn:hover {
+      background: #334155;
+      color: #ffffff;
+    }
+
+    /* Table responsive wrapper & Solid Table Background */
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      border-radius: var(--radius-md);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+      border: 1.5px solid #cbd5e1;
+      background: #f0f4f8;
+      margin-bottom: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      font-size: clamp(0.85rem, 2.2vw, 1rem);
+      background: #f0f4f8;
+    }
+
+    th {
+      background: #4997ff;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: clamp(0.85rem, 2vw, 0.85rem);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: clamp(8px, 1.8vw, 12px) clamp(4px, 1.2vw, 10px);
+      border-bottom: 3px solid #000000;
+    }
+
+    td {
+      padding: clamp(2px, 0.8vw, 4px) clamp(4px, 1.2vw, 8px);
+      border-bottom: 1px solid #cbd5e1;
+      background: #f0f4f8;
+      vertical-align: middle;
+      transition: background 0.15s ease;
+    }
+
+    tbody tr,
+    tbody tr:nth-child(even),
+    tbody tr:last-child {
+      background-color: #f0f4f8;
+    }
+
+    tbody tr:hover {
+      background-color: #e2e8f0;
+    }
+
+    /* Dark Mode Table Solid Styling */
+    [data-theme="dark"] .table-responsive,
+    [data-theme="dark"] table,
+    [data-theme="dark"] th,
+    [data-theme="dark"] td,
+    [data-theme="dark"] tbody tr,
+    [data-theme="dark"] tbody tr:nth-child(even),
+    [data-theme="dark"] tbody tr:last-child {
+      background-color: #0f172a;
+    }
+
+    [data-theme="dark"] tbody tr:hover {
+      background-color: #1e293b;
+    }
+
+    /* Bank Mode Bar & Unit Pills */
+    .bank-mode-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      padding: 10px 14px;
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: var(--radius-md);
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .bank-mode-label {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .bank-mode-label i {
+      color: #2563eb;
+      font-size: 0.95rem;
+    }
+
+    .bank-mode-options {
+      display: flex;
+      gap: 6px;
+      background: #f1f5f9;
+      padding: 3px;
+      border-radius: var(--radius-sm);
+      border: 1px solid #cbd5e1;
+    }
+
+    .mode-pill {
+      border: none;
+      background: transparent;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #64748b;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s ease;
+    }
+
+    .mode-pill.active {
+      background: #ffffff;
+      color: #2563eb;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    .mode-pill:hover:not(.active) {
+      color: #0f172a;
+    }
+
+    /* Dark Mode Banking Styles */
+    [data-theme="dark"] .bank-mode-bar {
+      background: #0f172a;
+      border-color: #334155;
+    }
+
+    [data-theme="dark"] .bank-mode-label {
+      color: #f8fafc;
+    }
+
+    [data-theme="dark"] .bank-mode-options {
+      background: #1e293b;
+      border-color: #334155;
+    }
+
+    [data-theme="dark"] .mode-pill {
+      color: #94a3b8;
+    }
+
+    [data-theme="dark"] .mode-pill.active {
+      background: #334155;
+      color: #60a5fa;
+    }
+
+    /* Column Widths & Header Alignments */
+    th:nth-child(1), td:nth-child(1) { width: 34%; }
+    th:nth-child(2), td:nth-child(2) { width: 33%; }
+    th:nth-child(3), td:nth-child(3) { width: 33%; }
+
+    th:nth-child(1) {
+      text-align: left;
+      padding-left: clamp(10px, 2vw, 16px);
+    }
+    th:nth-child(2) {
+      text-align: center;
+    }
+    th:nth-child(3) {
+      text-align: right;
+      padding-right: clamp(10px, 2vw, 16px);
+    }
+
+    /* Denomination Badge Styling */
+    .denom-cell {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 4px;
+      font-weight: 700;
+      color: #1e293b;
+    }
+
+    .denom-pill {
+      display: inline-flex;
+      align-items: center;
+      background: #f1f5f9;
+      color: #0f172a;
+      padding: clamp(2px, 0.8vw, 4px) clamp(6px, 1.5vw, 10px);
+      border-radius: 8px;
+      font-size: clamp(0.85rem, 2.4vw, 1.05rem);
+      border: 1px solid #e2e8f0;
+    }
+
+    .denom-pill.coins-pill {
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      color: #92400e;
+      border: 1px solid #fcd34d;
+    }
+
+    .align-right {
+      color: #94a3b8;
+      font-weight: 600;
+      font-size: clamp(0.8rem, 2vw, 0.95rem);
+    }
+
+    /* Input Cell Styling */
+    .input-cell {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .equal-sign {
+      color: #94a3b8;
+      font-weight: 600;
+      font-size: clamp(0.85rem, 2vw, 1rem);
+    }
+
+    .input-with-equal {
+      width: clamp(56px, 15vw, 75px);
+      max-width: 100%;
+      padding: clamp(5px, 1.2vw, 8px) clamp(4px, 1vw, 6px);
+      font-size: clamp(0.9rem, 2.5vw, 1rem);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      text-align: center;
+      color: #0f172a;
+      background: #ffffff;
+      border: 2px solid #cbd5e1;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03);
+    }
+
+    .input-with-equal:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+      background: #ffffff;
+    }
+
+    .input-with-equal::-webkit-outer-spin-button,
+    .input-with-equal::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    .input-with-equal { -moz-appearance: textfield; }
+
+    /* Total Cells & Grand Total */
+    .row-total {
+      text-align: right;
+      padding-right: clamp(6px, 1.8vw, 12px);
+      font-size: clamp(0.88rem, 2.5vw, 1.05rem);
+      font-weight: 700;
+      color: #334155;
+    }
+
+    .row-total::before {
+      content: '₹';
+      margin-right: 3px;
+      color: #94a3b8;
+      font-weight: 500;
+      font-size: 0.9em;
+    }
+
+    .total-row td {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important;
+      color: #ffffff !important;
+      padding: clamp(10px, 2.2vw, 14px) clamp(8px, 2vw, 14px);
+      border: none;
+      vertical-align: middle;
+    }
+
+    .total-label {
+      font-size: clamp(0.85rem, 2.5vw, 1.05rem);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #94a3b8;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    #grand-total {
+      font-size: clamp(1.1rem, 3.8vw, 1.45rem);
+      font-weight: 800;
+      color: #38bdf8;
+      text-align: right;
+      padding-right: clamp(6px, 1.8vw, 12px);
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      word-break: break-word;
+      overflow-wrap: anywhere;
+      line-height: 1.25;
+    }
+
+    #grand-total::before {
+      content: '₹';
+      margin-right: 3px;
+      color: #38bdf8;
+    }
+
+    /* Minimal Amount in Words Box */
+    .amount-in-words {
+      margin-top: 14px;
+      padding: 12px 16px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-left: 3.5px solid #6366f1;
+      border-radius: var(--radius-sm);
+      text-align: left;
+      transition: all 0.2s ease;
+    }
+
+    .words-header {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 4px;
+    }
+
+    .words-header i {
+      font-size: 0.78rem;
+      color: #6366f1;
+    }
+
+    .words-text {
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: #1e293b;
+      line-height: 1.4;
+      word-wrap: break-word;
+    }
+
+    /* Dark Mode Minimal Styling */
+    [data-theme="dark"] .amount-in-words {
+      background: #0f172a;
+      border-color: #1e293b;
+      border-left-color: #818cf8;
+    }
+
+    [data-theme="dark"] .words-header {
+      color: #94a3b8;
+    }
+
+    [data-theme="dark"] .words-header i {
+      color: #818cf8;
+    }
+
+    [data-theme="dark"] .words-text {
+      color: #f8fafc;
+    }
+
+    /* Opening Cash & Difference Inputs */
+    .expected-section {
+      margin-top: 16px;
+      text-align: left;
+    }
+
+    .expected-section label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #475569;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .expected-section input {
+      width: 100%;
+      padding: 12px 14px;
+      font-size: 16px;
+      font-family: 'Outfit', sans-serif;
+      border-radius: var(--radius-sm);
+      border: 1.5px solid #cbd5e1;
+      background: #ffffff;
+      transition: all 0.2s ease;
+      color: #0f172a;
+    }
+
+    .expected-section input:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+    }
+
+    /* Difference Card */
+    .difference-card {
+      margin-top: 14px;
+      padding: 16px;
+      border-radius: var(--radius-md);
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      text-align: left;
+      transition: all 0.3s ease;
+      display: none;
+    }
+
+    .diff-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .diff-badge.exact {
+      background: #dcfce7;
+      color: #15803d;
+      border: 1px solid #bbf7d0;
+    }
+
+    .diff-badge.excess {
+      background: #e0f2fe;
+      color: #0369a1;
+      border: 1px solid #bae6fd;
+    }
+
+    .diff-badge.shortage {
+      background: #fee2e2;
+      color: #b91c1c;
+      border: 1px solid #fca5a5;
+    }
+
+    .diff-text {
+      font-size: 0.95rem;
+      color: #475569;
+      line-height: 1.4;
+    }
+
+    /* Name Section Input */
+    .name-section {
+      margin-top: 16px;
+      text-align: left;
+    }
+
+    .name-section label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #475569;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .name-section input {
+      width: 100%;
+      padding: 12px 14px;
+      font-size: 16px;
+      font-family: 'Outfit', sans-serif;
+      border-radius: var(--radius-sm);
+      border: 1.5px solid #cbd5e1;
+      background: #ffffff;
+      transition: all 0.2s ease;
+      color: #0f172a;
+    }
+
+    .name-section input:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+    }
+
+    .additional-info {
+      margin-top: 6px;
+      font-size: 0.88rem;
+      color: #64748b;
+      font-style: italic;
+    }
+
+    /* Buttons Styling */
+    .export-btn {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      padding: 14px 28px;
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      color: #ffffff;
+      margin: 22px auto 12px auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      max-width: 340px;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.4);
+    }
+
+    .export-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 24px -5px rgba(37, 99, 235, 0.5);
+      background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+    }
+
+    .export-btn:active {
+      transform: translateY(0);
+    }
+
+    .export-btn.cancel {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      box-shadow: 0 10px 20px -5px rgba(239, 68, 68, 0.4);
+    }
+
+    .export-btn.cancel:hover {
+      background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    }
+
+    /* History Actions & Card */
+    .history-actions {
+      margin-top: 16px;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .feature-btn.save-history-btn {
+      background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+      flex: 1;
+      min-width: 160px;
+    }
+
+    .feature-btn.view-history-btn {
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+      flex: 1;
+      min-width: 160px;
+    }
+
+    .history-card {
+      margin-top: 16px;
+      padding: 18px;
+      border-radius: var(--radius-md);
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      text-align: left;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+    }
+
+    .history-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .history-header h3 {
+      font-size: 1.05rem;
+      color: #0f172a;
+      font-weight: 700;
+    }
+
+    .clear-history-btn {
+      background: none;
+      border: none;
+      color: #ef4444;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+
+    .clear-history-btn:hover {
+      background: #fef2f2;
+    }
+
+    .history-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-height: 280px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .history-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 12px;
+      background: #f8fafc;
+      border-radius: var(--radius-sm);
+      border: 1px solid #e2e8f0;
+    }
+
+    .history-title {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .history-meta {
+      font-size: 0.8rem;
+      color: #64748b;
+      margin-top: 2px;
+    }
+
+    .status-chip {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 12px;
+    }
+
+    .status-chip.exact { background: #dcfce7; color: #15803d; }
+    .status-chip.excess { background: #e0f2fe; color: #0369a1; }
+    .status-chip.shortage { background: #fee2e2; color: #b91c1c; }
+
+    .history-item-actions {
+      display: flex;
+      gap: 6px;
+    }
+
+    .hist-action-btn {
+      padding: 6px 10px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .hist-action-btn.load {
+      background: #3b82f6;
+      color: white;
+    }
+
+    .hist-action-btn.load:hover { background: #2563eb; }
+
+    .hist-action-btn.delete {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .hist-action-btn.delete:hover { background: #fca5a5; }
+
+    .empty-history {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #94a3b8;
+      padding: 20px 0;
+    }
+
+    /* Primary Register Action Buttons (With Text) */
+    .history-actions .feature-btn {
+      height: auto;
+      min-height: 44px;
+      padding: 10px 16px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      gap: 8px;
+    }
+
+    .history-actions .feature-btn i {
+      font-size: 1.05rem;
+    }
+
+    /* Secondary Feature Icon Buttons - Strictly 1 Line Across All Viewports */
+    .feature-buttons {
+      margin: 18px 0 6px 0;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      width: 100%;
+    }
+
+    .feature-btn {
+      flex: 1;
+      min-width: 0;
+      font-family: 'Outfit', sans-serif;
+      padding: 10px 2px;
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: clamp(1rem, 3.2vw, 1.35rem);
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      color: #ffffff;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 48px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    .feature-btn i {
+      font-size: clamp(1rem, 3.2vw, 1.35rem);
+    }
+
+    .feature-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+    }
+
+    .feature-btn:active {
+      transform: translateY(0);
+    }
+
+    /* Vibrant Feature Colors */
+    .feature-btn[onclick*="exportToPDF"], .feature-btn.pdf-btn {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    }
+
+    .feature-btn[onclick*="resetAll"] {
+      background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
+    }
+
+    .feature-btn[onclick*="exportToExcel"] {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    }
+
+    .feature-btn[onclick*="copyBankScrollText"] {
+      background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 100%);
+      box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3);
+    }
+
+    .feature-btn[onclick*="copyBankScrollText"]:hover {
+      background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+      box-shadow: 0 6px 16px rgba(30, 58, 138, 0.4);
+    }
+
+    .feature-btn[onclick*="print"] {
+      background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+    }
+
+    .feature-btn[onclick*="shareWhatsApp"] {
+      background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    }
+
+    .feature-btn[onclick*="shareEmail"] {
+      background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    }
+
+    .feature-btn.install-pwa-btn {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    }
+
+    /* Custom Website Modal Dialog */
+    .custom-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.2s ease;
+      padding: 16px;
+    }
+
+    .custom-modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .custom-modal-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      transform: scale(0.9);
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      text-align: center;
+    }
+
+    .custom-modal-overlay.active .custom-modal-card {
+      transform: scale(1);
+    }
+
+    .custom-modal-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      margin: 0 auto 12px auto;
+    }
+
+    .custom-modal-icon.warning-icon {
+      background: #fef3c7;
+      color: #d97706;
+    }
+
+    .custom-modal-icon.danger-icon {
+      background: #fee2e2;
+      color: #dc2626;
+    }
+
+    .custom-modal-icon.success-icon {
+      background: #dcfce7;
+      color: #16a34a;
+    }
+
+    .custom-modal-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 6px;
+    }
+
+    .custom-modal-body p {
+      font-size: 0.92rem;
+      color: #475569;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .custom-modal-footer {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .custom-modal-btn {
+      font-family: 'Outfit', sans-serif;
+      padding: 10px 20px;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      flex: 1;
+      transition: all 0.2s ease;
+    }
+
+    .custom-modal-btn.cancel-btn {
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid #cbd5e1;
+    }
+
+    .custom-modal-btn.cancel-btn:hover {
+      background: #e2e8f0;
+    }
+
+    .custom-modal-btn.confirm-btn {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+
+    .custom-modal-btn.confirm-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
+    }
+
+    .custom-modal-btn.confirm-btn.danger-confirm {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+    }
+
+    .custom-modal-btn.confirm-btn.danger-confirm:hover {
+      box-shadow: 0 6px 16px rgba(239, 68, 68, 0.4);
+    }
+
+    /* Secondary Container Below Calculator */
+    .footer-info-container {
+      margin-top: 24px;
+      padding: 24px;
+      text-align: left;
+    }
+
+    .footer-tabs-nav {
+      display: flex;
+      gap: 8px;
+      background: #f1f5f9;
+      padding: 5px;
+      border-radius: var(--radius-md);
+      border: 1.5px solid #cbd5e1;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-tab-btn {
+      flex: 1;
+      min-width: 110px;
+      padding: 10px 14px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #64748b;
+      border: none;
+      background: transparent;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+      white-space: nowrap;
+    }
+
+    .footer-tab-btn:hover {
+      color: #0f172a;
+      background: rgba(255, 255, 255, 0.6);
+    }
+
+    .footer-tab-btn.active {
+      background: #ffffff;
+      color: #2563eb;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+    }
+
+    .footer-tab-pane {
+      display: none;
+      animation: fadeInPane 0.25s ease-out forwards;
+    }
+
+    .footer-tab-pane.active {
+      display: block;
+    }
+
+    @keyframes fadeInPane {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .tab-heading {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tab-heading i {
+      color: #2563eb;
+    }
+
+    .tab-content p {
+      font-size: 0.92rem;
+      color: #475569;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    .tab-content ul {
+      margin-left: 20px;
+      margin-bottom: 12px;
+      color: #475569;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .tab-content li {
+      margin-bottom: 6px;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .contact-field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .contact-field label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #475569;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .contact-field input,
+    .contact-field textarea {
+      padding: 10px 14px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.92rem;
+      border: 1.5px solid #cbd5e1;
+      border-radius: var(--radius-sm);
+      background: #ffffff;
+      color: #0f172a;
+      transition: all 0.2s ease;
+    }
+
+    .contact-field input:focus,
+    .contact-field textarea:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+    }
+
+    .contact-submit-btn {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 12px 20px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+      transition: all 0.2s ease;
+      align-self: flex-start;
+    }
+
+    .contact-submit-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
+    }
+
+    /* Dark Mode Styling for Footer Container */
+    [data-theme="dark"] .footer-info-container {
+      background: var(--card-bg);
+    }
+
+    [data-theme="dark"] .footer-tabs-nav {
+      background: #1e293b;
+      border-color: #334155;
+    }
+
+    [data-theme="dark"] .footer-tab-btn {
+      color: #94a3b8;
+    }
+
+    [data-theme="dark"] .footer-tab-btn:hover {
+      color: #f8fafc;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    [data-theme="dark"] .footer-tab-btn.active {
+      background: #0f172a;
+      color: #60a5fa;
+    }
+
+    [data-theme="dark"] .tab-heading {
+      color: #f8fafc;
+    }
+
+    [data-theme="dark"] .tab-content p,
+    [data-theme="dark"] .tab-content ul {
+      color: #cbd5e1;
+    }
+
+    [data-theme="dark"] .contact-field input,
+    [data-theme="dark"] .contact-field textarea {
+      background: #1e293b;
+      border-color: #334155;
+      color: #f8fafc;
+    }
+
+    /* Story Card Styling in About Section */
+    .story-card {
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      border: 1.5px solid #cbd5e1;
+      border-radius: var(--radius-sm);
+      padding: 18px 20px;
+      margin: 16px 0 20px 0;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
+    }
+
+    .story-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .story-title i {
+      color: #ef4444;
+    }
+
+    .story-quote {
+      font-style: italic;
+      font-weight: 700;
+      color: #2563eb;
+      font-size: 1.02rem;
+      margin-bottom: 10px !important;
+    }
+
+    .story-highlight {
+      background: #dbeafe;
+      color: #1e40af;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-weight: 600;
+      margin-top: 14px !important;
+      margin-bottom: 0 !important;
+      border: 1px solid #bfdbfe;
+      line-height: 1.6;
+    }
+
+    [data-theme="dark"] .story-card {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      border-color: #334155;
+    }
+
+    [data-theme="dark"] .story-title {
+      color: #f8fafc;
+    }
+
+    [data-theme="dark"] .story-quote {
+      color: #60a5fa;
+    }
+
+    [data-theme="dark"] .story-highlight {
+      background: rgba(30, 58, 138, 0.4);
+      color: #93c5fd;
+      border-color: #1e40af;
+    }
+
+    /* Author Contact Card Styling */
+    .author-card {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+      border: 1.5px solid #cbd5e1;
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin-top: 10px;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+    }
+
+    .author-avatar-wrap {
+      flex-shrink: 0;
+    }
+
+    .author-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #2563eb;
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.2);
+    }
+
+    .author-info {
+      flex: 1;
+    }
+
+    .author-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: #2563eb;
+      background: #dbeafe;
+      padding: 3px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+
+    .author-name {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 6px;
+    }
+
+    .author-bio {
+      font-size: 0.9rem;
+      color: #475569;
+      line-height: 1.6;
+      margin-bottom: 16px !important;
+    }
+
+    .author-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px;
+    }
+
+    .author-link-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      border: 1.5px solid #cbd5e1;
+      background: #ffffff;
+      transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .author-link-btn i {
+      font-size: 1.25rem;
+      width: 24px;
+      text-align: center;
+    }
+
+    .author-link-btn .link-text {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .author-link-btn .link-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .author-link-btn .link-val {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #0f172a;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .author-link-btn.whatsapp-link i { color: #22c55e; }
+    .author-link-btn.facebook-link i { color: #1877f2; }
+    .author-link-btn.email-link i { color: #8b5cf6; }
+    .author-link-btn.website-link i { color: #2563eb; }
+
+    .author-link-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+      border-color: #3b82f6;
+    }
+
+    /* Dark Mode Author Card */
+    [data-theme="dark"] .author-card {
+      background: #0f172a;
+      border-color: #334155;
+    }
+
+    [data-theme="dark"] .author-name {
+      color: #f8fafc;
+    }
+
+    [data-theme="dark"] .author-bio {
+      color: #cbd5e1;
+    }
+
+    [data-theme="dark"] .author-link-btn {
+      background: #1e293b;
+      border-color: #334155;
+    }
+
+    [data-theme="dark"] .author-link-btn .link-val {
+      color: #f8fafc;
+    }
+
+    [data-theme="dark"] .author-link-btn:hover {
+      background: #334155;
+      border-color: #60a5fa;
+    }
+
+    @media screen and (max-width: 500px) {
+      .author-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .author-links {
+        grid-template-columns: 1fr;
+      }
+      .author-link-btn {
+        justify-content: flex-start;
+        text-align: left;
+      }
+    }
+
+    @media print {
+      .no-print { display: none !important; }
+    }
+
+    /* Responsive Mobile Tweak */
+    @media screen and (max-width: 600px) {
+      body {
+        padding: 10px 6px;
+      }
+
+      .container {
+        padding: 20px 12px;
+        border-radius: var(--radius-md);
+        text-align: left;
+      }
+
+      .container h1 {
+        font-size: 1.5rem;
+        text-align: left;
+        margin-bottom: 4px;
+      }
+
+      .sub-heading {
+        font-size: 0.82rem;
+        text-align: left;
+        margin-bottom: 16px;
+      }
+
+      .input-with-equal {
+        width: 68px;
+        font-size: 16px;
+      }
+
+      .feature-buttons {
+        gap: 5px;
+      }
+
+      .export-btn {
+        max-width: 100%;
+        width: 100%;
+      }
+    }
+
+    @media screen and (max-width: 360px) {
+      .feature-buttons {
+        gap: 3px;
+      }
+
+      .input-with-equal {
+        width: 58px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <main class="main-content">
+    <div class="container">
+      <div class="header-top-bar">
+        <div class="header-title-group">
+          <h1>Indian Cash Calculator</h1>
+          <p class="sub-heading">Fast & Accurate Tally</p>
+          <div class="minimal-datetime" id="date-time">
+            <span class="dt-date-text" id="date-text">--</span>
+            <span class="dt-pulse-dot"></span>
+            <span class="dt-time-text" id="time-text">--</span>
+          </div>
+        </div>
+        <button type="button" class="calc-tab-btn no-print" onclick="toggleQuickCalcModal()" title="Open Quick Calculator" aria-label="Open Quick Calculator">
+          <i class="fa-solid fa-calculator me-1"></i> Calculator
+        </button>
+      </div>
+
+      <!-- Banking Counting Unit Switcher -->
+      <div class="bank-mode-bar no-print">
+        <span class="bank-mode-label"><i class="fa-solid fa-building-columns"></i> Counting Unit:</span>
+        <div class="bank-mode-options">
+          <button type="button" class="mode-pill active" onclick="setCountUnit(1, this)" title="Count in single notes"><i class="fa-solid fa-money-bill-1"></i> Notes (1x)</button>
+          <button type="button" class="mode-pill" onclick="setCountUnit(100, this)" title="Count in 100-note packets (Pudda)"><i class="fa-solid fa-box"></i> Packets (100x)</button>
+          <button type="button" class="mode-pill" onclick="setCountUnit(1000, this)" title="Count in 1,000-note bundles (Bricks)"><i class="fa-solid fa-cubes"></i> Bundles (1000x)</button>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table id="cash-table">
+          <thead>
+            <tr>
+              <th>Denomination</th>
+              <th>Count</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody id="cash-calculator">
+            <!-- Rows will be dynamically added here -->
+          </tbody>
+          <tr class="total-row">
+            <td colspan="2" class="total-label">Grand Total</td>
+            <td id="grand-total">0</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="amount-in-words" id="amount-in-words">
+        <div class="words-header"><i class="fa-solid fa-spell-check"></i><span>Total in Words</span></div>
+        <div class="words-text" id="amount-words-val">Zero</div>
+      </div>
+
+      <!-- Opening Cash / Expected Amount Section -->
+      <div class="expected-section">
+        <label for="expected-amount"><i class="fa-solid fa-vault me-1"></i> Opening / Expected Cash (₹):</label>
+        <input type="number" id="expected-amount" placeholder="Enter expected cash (e.g. 50000)" inputmode="numeric" oninput="calculateDifference(); saveToLocalStorage();">
+      </div>
+
+      <!-- Cash Difference Status Card -->
+      <div class="difference-card" id="difference-card">
+        <div class="diff-badge" id="difference-badge"></div>
+        <div class="diff-text" id="difference-text"></div>
+      </div>
+
+      <div class="name-section">
+        <label for="name"><i class="fa-solid fa-user-pen me-1"></i> Name of the person counting:</label>
+        <input type="text" id="name" placeholder="Enter name (optional)" oninput="saveToLocalStorage();">
+      </div>
+
+      <div class="additional-info" id="additional-info"></div>
+
+      <!-- History Register Actions -->
+      <div class="history-actions no-print">
+        <button type="button" class="feature-btn save-history-btn" onclick="saveCurrentToHistory()"><i class="fa-solid fa-floppy-disk"></i> Save Entry to Register</button>
+        <button type="button" class="feature-btn view-history-btn" onclick="toggleHistoryView()"><i class="fa-solid fa-box-archive"></i> Cash Register (<span id="history-count">0</span>)</button>
+      </div>
+
+      <!-- History Card Drawer -->
+      <div class="history-card no-print" id="history-card" style="display: none;">
+        <div class="history-header">
+          <h3><i class="fa-solid fa-box-archive"></i> Saved Cash Register</h3>
+          <button type="button" class="clear-history-btn" onclick="clearAllHistory()"><i class="fa-solid fa-trash-can"></i> Clear Register</button>
+        </div>
+        <div class="history-list" id="history-list"></div>
+      </div>
+
+      <div class="feature-buttons no-print">
+        <button type="button" class="feature-btn pdf-btn" onclick="exportToPDF()" title="PDF Report" aria-label="PDF Report"><i class="fa-solid fa-file-pdf"></i></button>
+        <button type="button" class="feature-btn" onclick="resetAll()" title="Reset Calculator" aria-label="Reset Calculator"><i class="fa-solid fa-rotate-left"></i></button>
+        <button type="button" class="feature-btn" onclick="exportToExcel()" title="Excel Report" aria-label="Excel Report"><i class="fa-solid fa-file-excel"></i></button>
+        <button type="button" class="feature-btn" onclick="copyBankScrollText()" title="Copy Bank Scroll (Finacle / BaNCS)" aria-label="Copy Bank Scroll"><i class="fa-solid fa-receipt"></i></button>
+        <button type="button" class="feature-btn" onclick="printTally()" title="Print Tally" aria-label="Print Tally"><i class="fa-solid fa-print"></i></button>
+        <button type="button" class="feature-btn" onclick="shareWhatsApp()" title="Share to WhatsApp" aria-label="Share to WhatsApp"><i class="fa-brands fa-whatsapp"></i></button>
+        <button type="button" class="feature-btn" onclick="shareEmail()" title="Share to Email" aria-label="Share to Email"><i class="fa-solid fa-envelope"></i></button>
+        <button type="button" class="feature-btn install-pwa-btn" id="installPwaBtn" onclick="installPWA()" title="Install App" aria-label="Install App" style="display: none;"><i class="fa-solid fa-mobile-screen-button"></i></button>
+      </div>
+    </div>
+
+    <!-- Secondary Container: About, Privacy, Disclaimer, Contact -->
+    <div class="container footer-info-container no-print">
+      <div class="footer-tabs-nav">
+        <button type="button" class="footer-tab-btn active" onclick="switchFooterTab('about', this)">
+          <i class="fa-solid fa-circle-info"></i> About
+        </button>
+        <button type="button" class="footer-tab-btn" onclick="switchFooterTab('privacy', this)">
+          <i class="fa-solid fa-shield-halved"></i> Privacy Policy
+        </button>
+        <button type="button" class="footer-tab-btn" onclick="switchFooterTab('disclaimer', this)">
+          <i class="fa-solid fa-triangle-exclamation"></i> Disclaimer
+        </button>
+        <button type="button" class="footer-tab-btn" onclick="switchFooterTab('contact', this)">
+          <i class="fa-solid fa-envelope-open-text"></i> Contact
+        </button>
+      </div>
+
+      <div class="footer-tab-content">
+        <!-- About Tab Pane -->
+        <div class="footer-tab-pane active" id="tab-about">
+          <h3 class="tab-heading"><i class="fa-solid fa-circle-info"></i> About Indian Cash Calculator Pro</h3>
+          <div class="tab-content">
+            <p><strong>Indian Cash Calculator Pro</strong> is a simple and fast tool made for bank cashiers, shopkeepers, business owners, and anyone in India who needs to count cash easily without making mistakes.</p>
+            
+            <div class="story-card">
+              <h4 class="story-title"><i class="fa-solid fa-heart"></i> How Cash Tally Started</h4>
+              <p class="story-quote">"Honestly, I never planned to build this web app."</p>
+              <p>I used to visit a bank almost every day to deposit cash. During those regular visits, I became friends with <strong>Rupjyoti Rabha</strong>, a senior staff member and cashier at the bank. Since we met frequently, we started talking and gradually became good friends.</p>
+              <p>One day, during a normal conversation, he told me about a small problem.</p>
+              <p>Knowing that I am interested in web development and building useful tools, he asked me if I could create something simple that would make counting and calculating cash easier.</p>
+              <p>I told him, <em>“Okay, I’ll try.”</em></p>
+              <p>That was how the idea started.</p>
+              <p>At first, I was building this tool mainly for him. I started thinking about how to make cash counting simple—just enter the number of notes, and let the tool calculate everything automatically. While I was developing it, Rupjyoti also gave me some useful suggestions about features that could make it more practical.</p>
+              <p>Slowly, that small idea turned into <strong>Cash Tally</strong>.</p>
+              <p>What started as a simple request from a friend is now a tool that I hope can help anyone who regularly deals with cash.</p>
+              <p class="story-highlight">Sometimes, a project doesn't start with a big idea.<br>Sometimes, it just starts with someone saying, <em>“Can you make something that makes my work a little easier?”</em></p>
+            </div>
+
+            <p style="margin-top: 18px;"><strong>Key features built into the app:</strong></p>
+            <ul>
+              <li><strong>Indian Denominations:</strong> Instant calculation for ₹500, ₹200, ₹100, ₹50, ₹20, ₹10, ₹5, ₹2, ₹1, and Loose Coins.</li>
+              <li><strong>Packet & Bundle Counting:</strong> Count cash in single notes, 100-note packets (Pudda), or 1,000-note bundles (Bricks).</li>
+              <li><strong>Finacle / BaNCS Bank Scroll:</strong> 1-Click copy formatted cash scroll text for Indian bank tellers.</li>
+              <li><strong>Export Options:</strong> Generate high-resolution PDF reports, Excel spreadsheets, or share summaries on WhatsApp & Email.</li>
+              <li><strong>Daily Register & Vault Balancing:</strong> Save daily tallies locally and track cash shortages or excesses.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Privacy Policy Tab Pane -->
+        <div class="footer-tab-pane" id="tab-privacy">
+          <h3 class="tab-heading"><i class="fa-solid fa-shield-halved"></i> Privacy Policy</h3>
+          <div class="tab-content">
+            <p>Your privacy and financial data confidentiality are our top priorities.</p>
+            <ul>
+              <li><strong>100% Local Storage:</strong> All cash calculations, custom names, expected amounts, and register entries are stored strictly inside your web browser's local storage (<code>localStorage</code>).</li>
+              <li><strong>Zero Cloud Uploads:</strong> No cash numbers, personal details, or tally data are ever transmitted or uploaded to external servers or cloud databases.</li>
+              <li><strong>Offline Capable PWA:</strong> This application works completely offline as a Progressive Web App (PWA). You can safely use it without an active internet connection.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Disclaimer Tab Pane -->
+        <div class="footer-tab-pane" id="tab-disclaimer">
+          <h3 class="tab-heading"><i class="fa-solid fa-triangle-exclamation"></i> Disclaimer</h3>
+          <div class="tab-content">
+            <p>Please read this disclaimer carefully before relying on calculation outputs for official financial transactions:</p>
+            <ul>
+              <li><strong>Independent Utility:</strong> Indian Cash Calculator Pro is an independent web application. It is not affiliated, endorsed by, or connected with the Reserve Bank of India (RBI), State Bank of India (SBI), or any official banking institution.</li>
+              <li><strong>Verification:</strong> While calculations are strictly programmed using exact Indian numbering mathematics, users are advised to verify physical cash notes and vault balances before completing official bank deposits or cash handovers.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Contact Tab Pane -->
+        <div class="footer-tab-pane" id="tab-contact">
+          <h3 class="tab-heading"><i class="fa-solid fa-envelope-open-text"></i> Contact the Author</h3>
+          <div class="tab-content">
+            <div class="author-card">
+              <div class="author-avatar-wrap">
+                <img src="https://Suraj-011.github.io/cash-tally-pwa/suraj-paul.jpg" alt="Suraj Paul - Author & Developer of Cash Tally" class="author-avatar">
+              </div>
+              <div class="author-info">
+                <span class="author-badge"><i class="fa-solid fa-code"></i> Developer & Author</span>
+                <h4 class="author-name">Suraj Paul</h4>
+                <p class="author-bio">Hi there! I'm Suraj Paul, the creator of Cash Tally. I love building simple, fast, and practical tools that solve real everyday problems. Whether you have feedback, found a bug, or just want to say hi, feel free to reach out to me directly!</p>
+                
+                <div class="author-links">
+                  <a href="https://wa.me/918638448326" target="_blank" rel="noopener" class="author-link-btn whatsapp-link" title="Chat on WhatsApp">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <div class="link-text">
+                      <span class="link-label">WhatsApp</span>
+                      <span class="link-val">+91 8638448326</span>
+                    </div>
+                  </a>
+
+                  <a href="https://www.facebook.com/profile.php?id=100007374043960" target="_blank" rel="noopener" class="author-link-btn facebook-link" title="Connect on Facebook">
+                    <i class="fa-brands fa-facebook-f"></i>
+                    <div class="link-text">
+                      <span class="link-label">Facebook</span>
+                      <span class="link-val">Suraj Paul</span>
+                    </div>
+                  </a>
+
+                  <a href="mailto:aitumomail@gmail.com" class="author-link-btn email-link" title="Send an Email">
+                    <i class="fa-solid fa-envelope"></i>
+                    <div class="link-text">
+                      <span class="link-label">Email</span>
+                      <span class="link-val">aitumomail@gmail.com</span>
+                    </div>
+                  </a>
+
+                  <a href="https://hellosuraj.com" target="_blank" rel="noopener" class="author-link-btn website-link" title="Visit Personal Website">
+                    <i class="fa-solid fa-globe"></i>
+                    <div class="link-text">
+                      <span class="link-label">Website</span>
+                      <span class="link-val">hellosuraj.com</span>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const denominations = [500, 200, 100, 50, 20, 10, 5, 2, 1];
+    const tbody = document.getElementById('cash-calculator');
+
+    const numberToWords = (num) => {
+      const a = [
+        '', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten',
+        'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'
+      ];
+      const b = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+
+      if (num === 0) return 'Zero';
+
+      let words = '';
+
+      if (num >= 10000000) {
+        words += numberToWords(Math.floor(num / 10000000)) + ' Crore ';
+        num %= 10000000;
+      }
+      if (num >= 100000) {
+        words += numberToWords(Math.floor(num / 100000)) + ' Lakh ';
+        num %= 100000;
+      }
+      if (num >= 1000) {
+        words += numberToWords(Math.floor(num / 1000)) + ' Thousand ';
+        num %= 1000;
+      }
+      if (num >= 100) {
+        words += numberToWords(Math.floor(num / 100)) + ' Hundred ';
+        num %= 100;
+      }
+      if (num >= 20) {
+        words += b[Math.floor(num / 10)] + ' ';
+        num %= 10;
+      }
+      if (num > 0) {
+        words += a[num] + ' ';
+      }
+
+      return words.trim();
+    };
+
+    denominations.forEach(denomination => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>
+          <div class="denom-cell">
+            <span class="denom-pill">₹${denomination}</span>
+            <span class="align-right">×</span>
+          </div>
+        </td>
+        <td>
+          <div class="input-cell">
+            <input type="number" min="0" placeholder="0" inputmode="numeric" pattern="[0-9]*" oninput="calculateRowTotal(this)" onfocus="this.select()" data-value="${denomination}" class="input-with-equal">
+            <span class="equal-sign">=</span>
+          </div>
+        </td>
+        <td class="row-total">0</td>
+      `;
+      tbody.appendChild(row);
+    });
+
+    // Add Total Coins Row after ₹1
+    const coinsRow = document.createElement('tr');
+    coinsRow.className = 'coins-row';
+    coinsRow.innerHTML = `
+      <td>
+        <div class="denom-cell">
+          <span class="denom-pill coins-pill"><i class="fa-solid fa-coins me-1"></i> Coins</span>
+          <span class="align-right">₹</span>
+        </div>
+      </td>
+      <td>
+        <div class="input-cell">
+          <input type="number" min="0" placeholder="0" inputmode="numeric" pattern="[0-9]*" oninput="calculateRowTotal(this)" onfocus="this.select()" data-value="coins" data-is-coins="true" class="input-with-equal coins-input">
+          <span class="equal-sign">=</span>
+        </div>
+      </td>
+      <td class="row-total">0</td>
+    `;
+    tbody.appendChild(coinsRow);
+
+    const formatWithCommas = (num) => {
+      return num.toLocaleString('en-IN');
+    };
+
+    let currentUnitMult = 1;
+
+    function setCountUnit(mult, btn) {
+      currentUnitMult = mult;
+      document.querySelectorAll('.mode-pill').forEach(p => p.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+
+      document.querySelectorAll('#cash-calculator input').forEach(input => {
+        if (input.getAttribute('data-is-coins') !== 'true') {
+          input.setAttribute('data-unit-mult', mult);
+          if (mult === 100) input.placeholder = '0 pkts';
+          else if (mult === 1000) input.placeholder = '0 bdls';
+          else input.placeholder = '0';
+
+          calculateRowTotal(input);
+        }
+      });
+    }
+
+    function calculateRowTotal(input) {
+      const isCoins = input.getAttribute('data-is-coins') === 'true';
+      if (isCoins) {
+        const val = parseInt(input.value, 10) || 0;
+        input.closest('tr').querySelector('.row-total').textContent = formatWithCommas(val);
+      } else {
+        const denomination = parseInt(input.getAttribute('data-value'), 10);
+        const count = parseInt(input.value, 10) || 0;
+        const unitMult = parseInt(input.getAttribute('data-unit-mult') || '1', 10);
+        const rowTotal = denomination * count * unitMult;
+        input.closest('tr').querySelector('.row-total').textContent = formatWithCommas(rowTotal);
+      }
+      calculateTotal();
+    }
+
+    function calculateTotal() {
+      let grandTotal = 0;
+      document.querySelectorAll('.row-total').forEach(cell => {
+        grandTotal += parseInt(cell.textContent.replace(/,/g, ''), 10) || 0;
+      });
+      document.getElementById('grand-total').textContent = formatWithCommas(grandTotal);
+      
+      const wordsVal = document.getElementById('amount-words-val');
+      if (wordsVal) {
+        wordsVal.textContent = numberToWords(grandTotal);
+      } else {
+        document.getElementById('amount-in-words').innerHTML =
+          `<div class="words-header"><i class="fa-solid fa-spell-check"></i><span>Total in Words</span></div><div class="words-text" id="amount-words-val">${numberToWords(grandTotal)}</div>`;
+      }
+      
+      displayAdditionalInfo();
+      calculateDifference();
+    }
+
+    function calculateDifference() {
+      const expectedInput = document.getElementById('expected-amount');
+      const diffCard = document.getElementById('difference-card');
+      const diffBadge = document.getElementById('difference-badge');
+      const diffText = document.getElementById('difference-text');
+
+      if (!expectedInput || !diffBadge || !diffCard) return;
+
+      const expectedVal = parseFloat(expectedInput.value);
+      if (isNaN(expectedVal) || expectedInput.value === '') {
+        diffCard.style.display = 'none';
+        return;
+      }
+
+      diffCard.style.display = 'block';
+      const grandTotalStr = document.getElementById('grand-total').textContent.replace(/,/g, '');
+      const grandTotal = parseFloat(grandTotalStr) || 0;
+      const diff = grandTotal - expectedVal;
+
+      if (diff === 0) {
+        diffBadge.className = 'diff-badge exact';
+        diffBadge.innerHTML = '<i class="fa-solid fa-circle-check"></i> Exact Match (Cash Balanced)';
+        diffText.innerHTML = `Counted cash matches expected <strong>₹${formatWithCommas(expectedVal)}</strong>.`;
+      } else if (diff > 0) {
+        diffBadge.className = 'diff-badge excess';
+        diffBadge.innerHTML = `<i class="fa-solid fa-arrow-trend-up"></i> Cash Excess: +₹${formatWithCommas(diff)}`;
+        diffText.innerHTML = `Counted cash is <strong>+₹${formatWithCommas(diff)}</strong> more than expected <strong>₹${formatWithCommas(expectedVal)}</strong>.`;
+      } else {
+        const shortage = Math.abs(diff);
+        diffBadge.className = 'diff-badge shortage';
+        diffBadge.innerHTML = `<i class="fa-solid fa-arrow-trend-down"></i> Cash Shortage: -₹${formatWithCommas(shortage)}`;
+        diffText.innerHTML = `Counted cash is <strong>-₹${formatWithCommas(shortage)}</strong> short of expected <strong>₹${formatWithCommas(expectedVal)}</strong>.`;
+      }
+    }
+
+    /* Custom Website Modal Manager */
+    function showCustomModal({ title, message, icon = 'fa-triangle-exclamation', confirmText = 'Confirm', cancelText = 'Cancel', type = 'confirm', onConfirm }) {
+      const existing = document.getElementById('custom-modal-overlay');
+      if (existing) existing.remove();
+
+      const overlay = document.createElement('div');
+      overlay.id = 'custom-modal-overlay';
+      overlay.className = 'custom-modal-overlay';
+
+      const isAlert = type === 'alert';
+      const iconColorClass = type === 'danger' ? 'danger-icon' : type === 'success' ? 'success-icon' : 'warning-icon';
+
+      overlay.innerHTML = `
+        <div class="custom-modal-card">
+          <div class="custom-modal-header">
+            <div class="custom-modal-icon ${iconColorClass}">
+              <i class="fa-solid ${icon}"></i>
+            </div>
+            <h3 class="custom-modal-title">${title}</h3>
+          </div>
+          <div class="custom-modal-body">
+            <p>${message}</p>
+          </div>
+          <div class="custom-modal-footer">
+            ${!isAlert ? `<button class="custom-modal-btn cancel-btn" id="modal-cancel-btn">${cancelText}</button>` : ''}
+            <button class="custom-modal-btn confirm-btn ${type === 'danger' ? 'danger-confirm' : ''}" id="modal-confirm-btn">${isAlert ? 'OK' : confirmText}</button>
+          </div>
+        </div>
+      `;
+
+      document.body.appendChild(overlay);
+      setTimeout(() => overlay.classList.add('active'), 10);
+
+      const closeModal = (callback) => {
+        overlay.classList.remove('active');
+        setTimeout(() => {
+          overlay.remove();
+          if (callback) callback();
+        }, 150);
+      };
+
+      const confirmBtn = overlay.querySelector('#modal-confirm-btn');
+      if (confirmBtn) {
+        confirmBtn.onclick = (e) => {
+          if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+          closeModal(() => {
+            if (onConfirm) onConfirm();
+          });
+        };
+      }
+
+      const cancelBtn = overlay.querySelector('#modal-cancel-btn');
+      if (cancelBtn) {
+        cancelBtn.onclick = (e) => {
+          if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+          closeModal();
+        };
+      }
+
+      overlay.onclick = (e) => {
+        if (e.target === overlay) closeModal();
+      };
+    }
+
+    /* History Register Management */
+    function getHistory() {
+      const data = localStorage.getItem('cashTallyHistoryList');
+      return data ? JSON.parse(data) : [];
+    }
+
+    function saveHistory(list) {
+      localStorage.setItem('cashTallyHistoryList', JSON.stringify(list));
+      updateHistoryUI();
+    }
+
+    function saveCurrentToHistory() {
+      const grandTotalStr = document.getElementById('grand-total').textContent;
+
+      showCustomModal({
+        title: 'Save Entry to Register?',
+        message: `Do you want to save this cash tally entry of ₹${grandTotalStr} to your Daily Cash Register?`,
+        icon: 'fa-floppy-disk',
+        confirmText: 'Save Entry',
+        cancelText: 'Cancel',
+        type: 'confirm',
+        onConfirm: () => {
+          const name = document.getElementById('name').value || 'Unspecified';
+          const expectedVal = document.getElementById('expected-amount').value;
+          const dateStr = new Date().toLocaleString('en-IN', {
+            day: 'numeric', month: 'short', year: 'numeric',
+            hour: 'numeric', minute: 'numeric', hour12: true
+          });
+
+          const counts = {};
+          document.querySelectorAll('#cash-calculator input').forEach(input => {
+            counts[input.getAttribute('data-value')] = input.value;
+          });
+
+          const entry = {
+            id: Date.now().toString(),
+            date: dateStr,
+            name: name,
+            grandTotal: grandTotalStr,
+            expectedAmount: expectedVal,
+            counts: counts,
+            unitMult: currentUnitMult
+          };
+
+          const list = getHistory();
+          list.unshift(entry);
+          saveHistory(list);
+        }
+      });
+    }
+
+    function updateHistoryUI() {
+      const list = getHistory();
+      const countBadge = document.getElementById('history-count');
+      const historyList = document.getElementById('history-list');
+      
+      if (countBadge) countBadge.textContent = list.length;
+      if (!historyList) return;
+
+      if (list.length === 0) {
+        historyList.innerHTML = '<div class="empty-history">No saved entries in Cash Register.</div>';
+        return;
+      }
+
+      let html = '';
+      list.forEach(item => {
+        let statusText = '';
+        if (item.expectedAmount) {
+          const expNum = parseFloat(item.expectedAmount) || 0;
+          const totalNum = parseFloat(item.grandTotal.replace(/,/g, '')) || 0;
+          const diff = totalNum - expNum;
+          if (diff === 0) statusText = '<span class="status-chip exact">Balanced</span>';
+          else if (diff > 0) statusText = `<span class="status-chip excess">+₹${formatWithCommas(diff)} Excess</span>`;
+          else statusText = `<span class="status-chip shortage">-₹${formatWithCommas(Math.abs(diff))} Shortage</span>`;
+        }
+
+        html += `
+          <div class="history-item">
+            <div class="history-item-main">
+              <div class="history-title">₹${item.grandTotal} ${statusText}</div>
+              <div class="history-meta"><i class="fa-solid fa-user me-1"></i> ${item.name} • <i class="fa-regular fa-clock me-1"></i> ${item.date}</div>
+            </div>
+            <div class="history-item-actions">
+              <button type="button" class="hist-action-btn load" onclick="loadHistoryEntry('${item.id}')" title="Load Tally"><i class="fa-solid fa-arrows-rotate"></i> Load</button>
+              <button type="button" class="hist-action-btn delete" onclick="deleteHistoryEntry('${item.id}')" title="Delete"><i class="fa-solid fa-trash-can"></i></button>
+            </div>
+          </div>
+        `;
+      });
+
+      historyList.innerHTML = html;
+    }
+
+    function toggleHistoryView() {
+      const card = document.getElementById('history-card');
+      if (!card) return;
+      if (card.style.display === 'none' || !card.style.display) {
+        card.style.display = 'block';
+        updateHistoryUI();
+      } else {
+        card.style.display = 'none';
+      }
+    }
+
+    function loadHistoryEntry(id) {
+      const list = getHistory();
+      const item = list.find(entry => entry.id === id);
+      if (!item) return;
+
+      showCustomModal({
+        title: 'Load Saved Tally?',
+        message: `Do you want to load the saved tally of ₹${item.grandTotal} from ${item.date}?`,
+        icon: 'fa-arrows-rotate',
+        confirmText: 'Load Tally',
+        cancelText: 'Cancel',
+        type: 'confirm',
+        onConfirm: () => {
+          document.getElementById('name').value = item.name === 'Unspecified' ? '' : item.name;
+          document.getElementById('expected-amount').value = item.expectedAmount || '';
+
+          if (item.unitMult) {
+            const pills = document.querySelectorAll('.mode-pill');
+            const targetIdx = item.unitMult === 1000 ? 2 : item.unitMult === 100 ? 1 : 0;
+            if (pills[targetIdx]) setCountUnit(item.unitMult, pills[targetIdx]);
+          } else {
+            const pills = document.querySelectorAll('.mode-pill');
+            if (pills[0]) setCountUnit(1, pills[0]);
+          }
+
+          document.querySelectorAll('#cash-calculator input').forEach(input => {
+            const denomination = input.getAttribute('data-value');
+            if (item.counts && item.counts[denomination] !== undefined) {
+              input.value = item.counts[denomination];
+              calculateRowTotal(input);
+            } else {
+              input.value = '';
+              calculateRowTotal(input);
+            }
+          });
+
+          calculateDifference();
+          saveToLocalStorage();
+        }
+      });
+    }
+
+    function deleteHistoryEntry(id) {
+      showCustomModal({
+        title: 'Delete Entry?',
+        message: 'Are you sure you want to delete this entry from your Cash Register?',
+        icon: 'fa-trash-can',
+        confirmText: 'Delete',
+        cancelText: 'Cancel',
+        type: 'danger',
+        onConfirm: () => {
+          let list = getHistory();
+          list = list.filter(item => item.id !== id);
+          saveHistory(list);
+        }
+      });
+    }
+
+    function clearAllHistory() {
+      showCustomModal({
+        title: 'Clear Cash Register?',
+        message: 'Are you sure you want to clear ALL saved entries from your Cash Register? This action cannot be undone.',
+        icon: 'fa-triangle-exclamation',
+        confirmText: 'Clear All',
+        cancelText: 'Cancel',
+        type: 'danger',
+        onConfirm: () => {
+          saveHistory([]);
+        }
+      });
+    }
+
+    function displayAdditionalInfo() {
+      const name = document.getElementById('name').value;
+
+      let additionalInfo = '';
+      if (name) {
+        additionalInfo += `Cash counted by: <strong>${name}</strong><br>`;
+      }
+
+      document.getElementById('additional-info').innerHTML = additionalInfo;
+    }
+
+    function displayDateTime() {
+      const updateTime = () => {
+        const now = new Date();
+        const dateStr = now.toLocaleString('en-IN', {
+          weekday: 'short',
+          day: 'numeric',
+          month: 'short',
+          year: 'numeric'
+        });
+        const timeStr = now.toLocaleString('en-IN', {
+          hour: 'numeric',
+          minute: 'numeric',
+          second: 'numeric',
+          hour12: true,
+        });
+
+        const dateEl = document.getElementById('date-text');
+        const timeEl = document.getElementById('time-text');
+
+        if (dateEl && timeEl) {
+          dateEl.textContent = dateStr;
+          timeEl.textContent = timeStr;
+        } else {
+          document.getElementById('date-time').textContent = `Live: ${dateStr}, ${timeStr}`;
+        }
+      };
+      updateTime();
+      setInterval(updateTime, 1000);
+    }
+
+    function updateCharts() {
+      // Placeholder
+    }
+
+    function exportToPDF() {
+      showCustomModal({
+        title: 'Export PDF Report?',
+        message: 'Do you want to generate and download the Cash Tally PDF report?',
+        icon: 'fa-file-pdf',
+        confirmText: 'Export PDF',
+        cancelText: 'Cancel',
+        type: 'confirm',
+        onConfirm: () => {
+          generateAndDownloadPDF();
+        }
+      });
+    }
+
+    function generateAndDownloadPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      doc.setProperties({
+        title: 'Cash Calculator Report',
+        subject: 'Daily Cash Count Summary',
+        author: 'Cash Calculator Pro',
+        keywords: 'cash count, report, daily summary',
+        creator: 'Cash Calculator Pro'
+      });
+
+      // Header Banner
+      doc.setFillColor(29, 78, 216);
+      doc.rect(0, 0, 210, 38, 'F');
+
+      doc.setTextColor(255, 255, 255);
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(22);
+      doc.text('Indian Cash Calculator', 16, 18);
+      doc.setFontSize(11);
+      doc.setFont('helvetica', 'normal');
+      doc.text('Fast & Accurate Cash Management Report', 16, 28);
+
+      // Meta Details Section
+      doc.setTextColor(15, 23, 42);
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(14);
+      doc.text('Cash Count Summary', 16, 48);
+
+      const dateEl = document.getElementById('date-text');
+      const timeEl = document.getElementById('time-text');
+      const dateVal = dateEl ? dateEl.textContent : '';
+      const timeVal = timeEl ? timeEl.textContent : '';
+      const dateTime = (dateVal && timeVal) ? `${dateVal} • ${timeVal}` : document.getElementById('date-time').textContent;
+
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(71, 85, 105);
+      let currentY = 56;
+      doc.text(`Date & Time: ${dateTime}`, 16, currentY);
+      currentY += 6;
+
+      const name = document.getElementById('name').value;
+      if (name.trim()) {
+        doc.text(`Counter Name: ${name}`, 16, currentY);
+        currentY += 6;
+      }
+
+      const expectedVal = document.getElementById('expected-amount').value;
+      if (expectedVal) {
+        const expectedNum = parseFloat(expectedVal) || 0;
+        doc.text(`Opening / Expected Cash: Rs. ${formatWithCommas(expectedNum)}`, 16, currentY);
+        currentY += 6;
+      }
+
+      // Collect Table Data
+      const tableData = [];
+      const rows = document.querySelectorAll('#cash-calculator tr');
+      rows.forEach(row => {
+        const input = row.querySelector('input');
+        if (!input) return;
+        const count = input.value;
+        const total = row.querySelector('.row-total').textContent;
+        if (parseInt(count) > 0) {
+          const isCoins = input.getAttribute('data-is-coins') === 'true';
+          const label = isCoins ? 'Loose Coins' : `Rs. ${input.getAttribute('data-value')}`;
+          const countDisplay = isCoins ? 'Sum' : count;
+          tableData.push([
+            label,
+            countDisplay,
+            `Rs. ${total.replace(/,/g, '').trim()}`
+          ]);
+        }
+      });
+
+      if (tableData.length === 0) {
+        tableData.push(['No entries', '0', 'Rs. 0']);
+      }
+
+      doc.autoTable({
+        head: [['Denomination', 'Count', 'Total (Rs.)']],
+        body: tableData,
+        startY: currentY + 4,
+        theme: 'striped',
+        headStyles: {
+          fillColor: [37, 99, 235],
+          textColor: 255,
+          fontSize: 11,
+          fontStyle: 'bold',
+          halign: 'center'
+        },
+        bodyStyles: {
+          fontSize: 10,
+          halign: 'center',
+          textColor: [15, 23, 42]
+        },
+        alternateRowStyles: {
+          fillColor: [248, 250, 252]
+        },
+        margin: { left: 16, right: 16 }
+      });
+
+      const grandTotal = document.getElementById('grand-total').textContent;
+      const finalY = doc.lastAutoTable.finalY || (currentY + 30);
+
+      // Grand Total Box
+      doc.setFillColor(15, 23, 42);
+      doc.rect(16, finalY + 6, 178, 12, 'F');
+      doc.setTextColor(56, 189, 248);
+      doc.setFontSize(13);
+      doc.setFont('helvetica', 'bold');
+      doc.text(`GRAND TOTAL: Rs. ${grandTotal}`, 22, finalY + 14);
+
+      let nextY = finalY + 26;
+
+      // Status & Difference
+      if (expectedVal) {
+        const expectedNum = parseFloat(expectedVal) || 0;
+        const grandTotalNum = parseFloat(grandTotal.replace(/,/g, '')) || 0;
+        const diff = grandTotalNum - expectedNum;
+        doc.setFontSize(10);
+        doc.setFont('helvetica', 'bold');
+        if (diff === 0) {
+          doc.setTextColor(21, 128, 61);
+          doc.text(`Status: Exact Match (Cash Balanced)`, 16, nextY);
+        } else if (diff > 0) {
+          doc.setTextColor(3, 105, 161);
+          doc.text(`Status: Cash Excess (+Rs. ${formatWithCommas(diff)})`, 16, nextY);
+        } else {
+          doc.setTextColor(185, 28, 28);
+          doc.text(`Status: Cash Shortage (-Rs. ${formatWithCommas(Math.abs(diff))})`, 16, nextY);
+        }
+        nextY += 8;
+      }
+
+      // Amount in Words
+      const wordsEl = document.getElementById('amount-words-val');
+      const amountWords = wordsEl ? wordsEl.textContent.trim() : document.getElementById('amount-in-words').textContent.replace('Total in Words', '').replace('Total in words:', '').trim();
+      const bracketedAmountWords = `Amount in words: ${amountWords} Rupees Only`;
+
+      doc.setTextColor(71, 85, 105);
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'italic');
+      const splitBracketedWords = doc.splitTextToSize(bracketedAmountWords, 178);
+      doc.text(splitBracketedWords, 16, nextY);
+
+      // Footer
+      doc.setFillColor(241, 245, 249);
+      doc.rect(0, 280, 210, 17, 'F');
+      doc.setTextColor(100, 116, 139);
+      doc.setFontSize(9);
+      doc.setFont('helvetica', 'normal');
+      doc.text('Generated by Cash Tally', 16, 290);
+      doc.text('https://cash-tally.blogspot.com/', 150, 290);
+
+      const currentDate = new Date().toISOString().split('T')[0];
+      doc.save(`Cash_Tally_Report_${currentDate}.pdf`);
+    }
+
+    function saveToLocalStorage() {
+      const data = {
+        counts: {},
+        name: document.getElementById('name').value,
+        expectedAmount: document.getElementById('expected-amount').value,
+        timestamp: new Date().toISOString()
+      };
+
+      document.querySelectorAll('#cash-calculator input').forEach(input => {
+        data.counts[input.getAttribute('data-value')] = input.value;
+      });
+
+      localStorage.setItem('cashCalculatorData', JSON.stringify(data));
+    }
+
+    function loadFromLocalStorage() {
+      const saved = localStorage.getItem('cashCalculatorData');
+      if (saved) {
+        const data = JSON.parse(saved);
+        if (data.name) document.getElementById('name').value = data.name;
+        if (data.expectedAmount) {
+          document.getElementById('expected-amount').value = data.expectedAmount;
+        }
+
+        document.querySelectorAll('#cash-calculator input').forEach(input => {
+          const denomination = input.getAttribute('data-value');
+          if (data.counts && data.counts[denomination] !== undefined) {
+            input.value = data.counts[denomination];
+            calculateRowTotal(input);
+          }
+        });
+        calculateDifference();
+      }
+    }
+
+    function toggleTheme() {
+      document.body.dataset.theme =
+        document.body.dataset.theme === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('theme', document.body.dataset.theme);
+    }
+
+    function exportToExcel() {
+      showCustomModal({
+        title: 'Export Excel Spreadsheet?',
+        message: 'Do you want to generate and download the Excel report for this cash tally?',
+        icon: 'fa-file-excel',
+        confirmText: 'Export Excel',
+        cancelText: 'Cancel',
+        type: 'confirm',
+        onConfirm: () => {
+          generateAndDownloadExcel();
+        }
+      });
+    }
+
+    function generateAndDownloadExcel() {
+      const wb = XLSX.utils.book_new();
+      const now = new Date();
+      const dateTimeStr = now.toLocaleString('en-IN', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+        hour12: true
+      });
+
+      const personName = document.getElementById('name').value;
+      const expectedVal = document.getElementById('expected-amount').value;
+      const wordsEl = document.getElementById('amount-words-val');
+      const totalInWords = wordsEl ? wordsEl.textContent.trim() : document.getElementById('amount-in-words').textContent.replace('Total in Words', '').replace('Total in words:', '').trim();
+      const grandTotal = document.getElementById('grand-total').textContent;
+
+      const data = [
+        ['Cash Count Report'],
+        [''],
+        ['Date and Time:', dateTimeStr],
+        ['Name of Person:', personName || 'Not Specified'],
+        ['Opening / Expected Cash:', expectedVal ? `₹${formatWithCommas(parseFloat(expectedVal))}` : 'N/A'],
+        [''],
+        ['Denomination Details:'],
+        [''],
+        ['Denomination', 'Count', 'Total']
+      ];
+
+      document.querySelectorAll('#cash-calculator tr').forEach(row => {
+        const input = row.querySelector('input');
+        if (!input) return;
+        const count = input.value;
+        const total = row.querySelector('.row-total').textContent;
+        if (parseInt(count) > 0) {
+          const isCoins = input.getAttribute('data-is-coins') === 'true';
+          const label = isCoins ? 'Coins Total' : `₹${input.getAttribute('data-value')}`;
+          const countDisplay = isCoins ? 'Sum' : count;
+          data.push([label, countDisplay, total]);
+        }
+      });
+
+      if (expectedVal) {
+        const grandTotalNum = parseFloat(grandTotal.replace(/,/g, '')) || 0;
+        const expectedNum = parseFloat(expectedVal) || 0;
+        const diff = grandTotalNum - expectedNum;
+        let diffStr = 'Exact Match';
+        if (diff > 0) diffStr = `+₹${formatWithCommas(diff)} (Excess)`;
+        if (diff < 0) diffStr = `-₹${formatWithCommas(Math.abs(diff))} (Shortage)`;
+
+        data.push(
+          [''],
+          ['Grand Total:', '', `₹${grandTotal}`],
+          ['Expected Cash:', '', `₹${formatWithCommas(expectedNum)}`],
+          ['Cash Status / Difference:', '', diffStr],
+          ['Total in Words:', '', totalInWords],
+          [''],
+          ['Generated using Cash Calculator Pro']
+        );
+      } else {
+        data.push(
+          [''],
+          ['Grand Total:', '', `₹${grandTotal}`],
+          ['Total in Words:', '', totalInWords],
+          [''],
+          ['Generated using Cash Calculator Pro']
+        );
+      }
+
+      const ws = XLSX.utils.aoa_to_sheet(data);
+
+      ws['!cols'] = [{ wch: 25 }, { wch: 15 }, { wch: 30 }];
+      ws['!merges'] = [
+        { s: { r: 0, c: 0 }, e: { r: 0, c: 2 } },
+        { s: { r: 6, c: 0 }, e: { r: 6, c: 2 } }
+      ];
+
+      XLSX.utils.book_append_sheet(wb, ws, 'Cash Count');
+      const fileName = `Cash_Count_${now.toISOString().split('T')[0]}.xlsx`;
+      XLSX.writeFile(wb, fileName);
+    }
+
+    function copyBankScrollText() {
+      let text = 'BANK CASH SCROLL SUMMARY\n';
+      text += '═════════════════════════\n';
+      
+      const personName = document.getElementById('name').value;
+      if (personName.trim()) {
+        text += `TELLER: ${personName}\n`;
+      }
+      
+      const dateEl = document.getElementById('date-text');
+      const timeEl = document.getElementById('time-text');
+      const dateTimeStr = (dateEl && timeEl) ? `${dateEl.textContent} ${timeEl.textContent}` : (document.getElementById('date-time').textContent || '');
+      if (dateTimeStr) {
+        text += `DATE: ${dateTimeStr}\n`;
+      }
+      text += '-------------------------\n';
+
+      let hasEntries = false;
+      document.querySelectorAll('#cash-calculator tr').forEach(row => {
+        const input = row.querySelector('input');
+        if (!input) return;
+        const count = parseInt(input.value, 10);
+        const total = row.querySelector('.row-total').textContent;
+        if (count > 0) {
+          hasEntries = true;
+          const isCoins = input.getAttribute('data-is-coins') === 'true';
+          if (isCoins) {
+            text += `COINS   = Rs. ${total}\n`;
+          } else {
+            const denom = input.getAttribute('data-value');
+            const unitMult = parseInt(input.getAttribute('data-unit-mult') || '1', 10);
+            let unitLabel = '';
+            if (unitMult === 100) unitLabel = ' (100s)';
+            else if (unitMult === 1000) unitLabel = ' (1000s)';
+            
+            text += `${denom.padStart(4)}${unitLabel} x ${count} = Rs. ${total}\n`;
+          }
+        }
+      });
+
+      if (!hasEntries) {
+        text += 'NO DENOMINATION ENTERED\n';
+      }
+
+      text += '-------------------------\n';
+      const grandTotal = document.getElementById('grand-total').textContent;
+      const wordsEl = document.getElementById('amount-words-val');
+      const totalInWords = wordsEl ? wordsEl.textContent.trim() : 'Zero';
+      
+      text += `TOTAL CASH = Rs. ${grandTotal}\n`;
+      text += `WORDS: ${totalInWords} Rupees Only\n`;
+      text += '═════════════════════════\n';
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text);
+      }
+
+      showCustomModal({
+        title: 'Bank Scroll Copied!',
+        message: 'Bank Cash Scroll formatted text has been copied to your clipboard! You can paste (Ctrl+V) directly into Finacle / BaNCS bank software.',
+        icon: 'fa-receipt',
+        confirmText: 'OK',
+        type: 'alert'
+      });
+    }
+
+    function shareWhatsApp() {
+      showCustomModal({
+        title: 'Share to WhatsApp?',
+        message: 'Do you want to open WhatsApp to share this cash tally summary?',
+        icon: 'fa-brands fa-whatsapp',
+        confirmText: 'Open WhatsApp',
+        cancelText: 'Cancel',
+        type: 'confirm',
+        onConfirm: () => {
+          const text = generateReportText();
+          const dateEl = document.getElementById('date-text');
+          const timeEl = document.getElementById('time-text');
+          const dateTimeStr = (dateEl && timeEl) ? `${dateEl.textContent} • ${timeEl.textContent}` : (document.getElementById('date-time').textContent || 'N/A');
+          const additionalInfo = `Name: ${document.getElementById('name').value || 'N/A'}\nDate: ${dateTimeStr}`;
+          const finalText = `${text}\n\nAdditional Info:\n${additionalInfo}`;
+          window.open(`https://wa.me/?text=${encodeURIComponent(finalText)}`);
+        }
+      });
+    }
+
+    function generateReportText() {
+      let text = 'CASH COUNT REPORT\n';
+      text += '═══════════════════\n\n';
+
+      const personName = document.getElementById('name').value;
+      if (personName.trim()) {
+        text += `NAME: ${personName}\n`;
+      }
+
+      const expectedVal = document.getElementById('expected-amount').value;
+      if (expectedVal) {
+        text += `EXPECTED CASH: ₹${formatWithCommas(parseFloat(expectedVal))}\n`;
+      }
+      text += '\n';
+
+      text += 'DENOMINATION DETAILS:\n';
+      text += '─────────────────────\n';
+      document.querySelectorAll('#cash-calculator tr').forEach(row => {
+        const input = row.querySelector('input');
+        if (!input) return;
+        const count = input.value;
+        const total = row.querySelector('.row-total').textContent;
+        if (parseInt(count) > 0) {
+          const isCoins = input.getAttribute('data-is-coins') === 'true';
+          if (isCoins) {
+            text += `🪙 Coins Total = ₹${total}\n`;
+          } else {
+            const denomination = input.getAttribute('data-value');
+            text += `₹${denomination}  ×  ${count} = ₹${total}\n`;
+          }
+        }
+      });
+
+      text += '\n─────────────────────\n';
+      const grandTotal = document.getElementById('grand-total').textContent;
+      const wordsEl = document.getElementById('amount-words-val');
+      const totalInWords = wordsEl ? wordsEl.textContent.trim() : document.getElementById('amount-in-words').textContent.replace('Total in Words', '').replace('Total in words:', '').trim();
+
+      text += `GRAND TOTAL: ₹${grandTotal}\n`;
+
+      if (expectedVal) {
+        const grandTotalNum = parseFloat(grandTotal.replace(/,/g, '')) || 0;
+        const expectedNum = parseFloat(expectedVal) || 0;
+        const diff = grandTotalNum - expectedNum;
+        if (diff === 0) text += `STATUS: ✅ Exact Match (₹0)\n`;
+        else if (diff > 0) text += `STATUS: 📈 Excess +₹${formatWithCommas(diff)}\n`;
+        else text += `STATUS: 📉 Shortage -₹${formatWithCommas(Math.abs(diff))}\n`;
+      }
+
+      text += `AMOUNT IN WORDS: (${totalInWords})\n`;
+      text += '═══════════════════\n\n';
+      text += 'Visit us at: https://cash-count.com\n';
+
+      return text;
+    }
+
+    function printTally() {
+      showCustomModal({
+        title: 'Print Cash Tally?',
+        message: 'Do you want to open the print dialog to print this cash count report?',
+        icon: 'fa-print',
+        confirmText: 'Print Report',
+        cancelText: 'Cancel',
+        type: 'confirm',
+        onConfirm: () => {
+          window.print();
+        }
+      });
+    }
+
+    function shareEmail() {
+      showCustomModal({
+        title: 'Compose Email Report?',
+        message: 'Do you want to generate a screenshot report and compose an email summary?',
+        icon: 'fa-envelope',
+        confirmText: 'Compose Email',
+        cancelText: 'Cancel',
+        type: 'confirm',
+        onConfirm: () => {
+          generateEmailReport();
+        }
+      });
+    }
+
+    async function generateEmailReport() {
+      try {
+        const loadingDiv = document.createElement('div');
+        loadingDiv.style.cssText = `
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background: rgba(15, 23, 42, 0.9);
+          color: white;
+          padding: 20px 28px;
+          border-radius: 14px;
+          z-index: 9999;
+          font-weight: 700;
+          backdrop-filter: blur(8px);
+        `;
+        loadingDiv.textContent = 'Generating screenshot...';
+        document.body.appendChild(loadingDiv);
+
+        const container = document.querySelector('.container');
+        const canvas = await html2canvas(container, {
+          scale: 2,
+          useCORS: true,
+          logging: false,
+          backgroundColor: '#ffffff'
+        });
+
+        const text = generateReportText();
+        const emailUrl = `mailto:?subject=Cash Count Report&body=${encodeURIComponent(text)}`;
+
+        document.body.removeChild(loadingDiv);
+
+        const messageDiv = document.createElement('div');
+        messageDiv.style.cssText = `
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background: white;
+          padding: 24px;
+          border-radius: 16px;
+          box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+          z-index: 9999;
+          max-width: 90%;
+          width: 380px;
+          text-align: center;
+          font-family: 'Outfit', sans-serif;
+        `;
+
+        const downloadLink = document.createElement('a');
+        downloadLink.href = canvas.toDataURL('image/png');
+        downloadLink.download = 'cash-count-report.png';
+        downloadLink.className = 'export-btn';
+        downloadLink.style.margin = '12px 0';
+        downloadLink.textContent = 'Download Screenshot';
+
+        messageDiv.innerHTML = `
+          <h3 style="margin-top: 0; color: #0f172a; font-size: 1.3rem;">Report Ready!</h3>
+          <p style="font-size: 0.9rem; color: #64748b; margin-top: 6px;">1. Download the screenshot using the button below</p>
+          <p style="font-size: 0.9rem; color: #64748b;">2. Click "Continue to Email" to compose email</p>
+          <p style="font-size: 0.9rem; color: #64748b;">3. Attach the downloaded screenshot</p>
+        `;
+
+        const buttonsDiv = document.createElement('div');
+        buttonsDiv.className = 'buttons-div';
+
+        buttonsDiv.appendChild(downloadLink);
+
+        const emailButton = document.createElement('button');
+        emailButton.type = 'button';
+        emailButton.textContent = 'Continue to Email';
+        emailButton.className = 'export-btn';
+        emailButton.style.margin = '6px 0';
+        emailButton.onclick = () => {
+          window.location.href = emailUrl;
+          document.body.removeChild(messageDiv);
+        };
+        buttonsDiv.appendChild(emailButton);
+
+        const closeButton = document.createElement('button');
+        closeButton.type = 'button';
+        closeButton.textContent = 'Cancel';
+        closeButton.className = 'export-btn cancel';
+        closeButton.style.margin = '6px 0';
+        closeButton.onclick = () => document.body.removeChild(messageDiv);
+        buttonsDiv.appendChild(closeButton);
+
+        messageDiv.appendChild(buttonsDiv);
+        document.body.appendChild(messageDiv);
+
+      } catch (error) {
+        console.error('Error generating screenshot:', error);
+        alert('There was an error generating the screenshot. Please try again.');
+      }
+    }
+
+    function resetAll() {
+      showCustomModal({
+        title: 'Reset Calculator?',
+        message: 'Are you sure you want to reset all counts and inputs to zero?',
+        icon: 'fa-rotate-left',
+        confirmText: 'Reset All',
+        cancelText: 'Cancel',
+        type: 'danger',
+        onConfirm: () => {
+          localStorage.removeItem('cashCalculatorData');
+          const pills = document.querySelectorAll('.mode-pill');
+          if (pills[0]) setCountUnit(1, pills[0]);
+
+          document.querySelectorAll('#cash-calculator input').forEach(input => {
+            input.value = '';
+            calculateRowTotal(input);
+          });
+          document.getElementById('name').value = '';
+          const expInput = document.getElementById('expected-amount');
+          if (expInput) expInput.value = '';
+          calculateDifference();
+          updateCharts();
+        }
+      });
+    }
+
+    /* Quick Calculator Logic */
+    let calcCurrent = '0';
+    let calcPrevious = '';
+    let calcOperator = null;
+    let calcResetNext = false;
+
+    function toggleQuickCalcModal() {
+      let overlay = document.getElementById('calc-modal-overlay');
+      if (overlay) {
+        overlay.remove();
+        document.removeEventListener('keydown', handleCalcKeyboard);
+      } else {
+        createQuickCalcModal();
+        document.addEventListener('keydown', handleCalcKeyboard);
+      }
+    }
+
+    function createQuickCalcModal() {
+      const overlay = document.createElement('div');
+      overlay.id = 'calc-modal-overlay';
+      overlay.className = 'calc-modal-overlay';
+      overlay.onclick = (e) => {
+        if (e.target === overlay) toggleQuickCalcModal();
+      };
+
+      overlay.innerHTML = `
+        <div class="calc-modal-card" onclick="event.stopPropagation()">
+          <div class="calc-modal-header">
+            <div class="calc-modal-title">
+              <i class="fa-solid fa-calculator"></i> Quick Calculator
+            </div>
+            <button type="button" class="calc-close-btn" onclick="toggleQuickCalcModal()" aria-label="Close Calculator">&times;</button>
+          </div>
+          <div class="calc-display">
+            <div class="calc-history" id="calc-history"></div>
+            <div class="calc-screen" id="calc-screen">0</div>
+          </div>
+          <div class="calc-keypad">
+            <button type="button" class="calc-btn clear-btn" onclick="calcAction('AC')">AC</button>
+            <button type="button" class="calc-btn" onclick="calcAction('DEL')"><i class="fa-solid fa-delete-left"></i></button>
+            <button type="button" class="calc-btn op-btn" onclick="calcAction('%')">%</button>
+            <button type="button" class="calc-btn op-btn" onclick="calcAction('÷')">÷</button>
+
+            <button type="button" class="calc-btn" onclick="calcAction('7')">7</button>
+            <button type="button" class="calc-btn" onclick="calcAction('8')">8</button>
+            <button type="button" class="calc-btn" onclick="calcAction('9')">9</button>
+            <button type="button" class="calc-btn op-btn" onclick="calcAction('×')">×</button>
+
+            <button type="button" class="calc-btn" onclick="calcAction('4')">4</button>
+            <button type="button" class="calc-btn" onclick="calcAction('5')">5</button>
+            <button type="button" class="calc-btn" onclick="calcAction('6')">6</button>
+            <button type="button" class="calc-btn op-btn" onclick="calcAction('-')">-</button>
+
+            <button type="button" class="calc-btn" onclick="calcAction('1')">1</button>
+            <button type="button" class="calc-btn" onclick="calcAction('2')">2</button>
+            <button type="button" class="calc-btn" onclick="calcAction('3')">3</button>
+            <button type="button" class="calc-btn op-btn" onclick="calcAction('+')">+</button>
+
+            <button type="button" class="calc-btn" onclick="calcAction('±')">±</button>
+            <button type="button" class="calc-btn" onclick="calcAction('0')">0</button>
+            <button type="button" class="calc-btn" onclick="calcAction('.')">.</button>
+            <button type="button" class="calc-btn equals-btn" onclick="calcAction('=')">=</button>
+          </div>
+          <div class="calc-action-bar">
+            <button type="button" class="calc-copy-btn" onclick="copyCalcResult()"><i class="fa-solid fa-copy"></i> Copy Result</button>
+          </div>
+        </div>
+      `;
+
+      document.body.appendChild(overlay);
+      updateCalcDisplay();
+    }
+
+    function calcAction(val) {
+      if (!isNaN(val)) {
+        if (calcCurrent === '0' || calcResetNext) {
+          calcCurrent = val;
+          calcResetNext = false;
+        } else {
+          calcCurrent += val;
+        }
+      } else if (val === '.') {
+        if (calcResetNext) {
+          calcCurrent = '0.';
+          calcResetNext = false;
+        } else if (!calcCurrent.includes('.')) {
+          calcCurrent += '.';
+        }
+      } else if (val === '±') {
+        if (calcCurrent !== '0') {
+          calcCurrent = calcCurrent.startsWith('-') ? calcCurrent.slice(1) : '-' + calcCurrent;
+        }
+      } else if (val === 'AC') {
+        calcCurrent = '0';
+        calcPrevious = '';
+        calcOperator = null;
+        calcResetNext = false;
+      } else if (val === 'DEL') {
+        if (calcCurrent.length > 1) {
+          calcCurrent = calcCurrent.slice(0, -1);
+        } else {
+          calcCurrent = '0';
+        }
+      } else if (['+', '-', '×', '÷', '%'].includes(val)) {
+        if (calcOperator && !calcResetNext) {
+          calcCompute();
+        }
+        calcPrevious = calcCurrent;
+        calcOperator = val;
+        calcResetNext = true;
+      } else if (val === '=') {
+        if (calcOperator && calcPrevious !== '') {
+          calcCompute();
+          calcOperator = null;
+          calcPrevious = '';
+          calcResetNext = true;
+        }
+      }
+      updateCalcDisplay();
+    }
+
+    function calcCompute() {
+      let prev = parseFloat(calcPrevious);
+      let curr = parseFloat(calcCurrent);
+      if (isNaN(prev) || isNaN(curr)) return;
+
+      let result = 0;
+      switch (calcOperator) {
+        case '+': result = prev + curr; break;
+        case '-': result = prev - curr; break;
+        case '×': result = prev * curr; break;
+        case '÷':
+          if (curr === 0) {
+            calcCurrent = 'Error';
+            calcPrevious = '';
+            calcOperator = null;
+            calcResetNext = true;
+            return;
+          }
+          result = prev / curr;
+          break;
+        case '%': result = (prev * curr) / 100; break;
+      }
+      calcCurrent = (Math.round(result * 100000000) / 100000000).toString();
+    }
+
+    function updateCalcDisplay() {
+      const screenEl = document.getElementById('calc-screen');
+      const histEl = document.getElementById('calc-history');
+      if (screenEl) screenEl.textContent = calcCurrent;
+      if (histEl) {
+        histEl.textContent = calcOperator ? `${calcPrevious} ${calcOperator}` : '';
+      }
+    }
+
+    function copyCalcResult() {
+      const screenEl = document.getElementById('calc-screen');
+      if (!screenEl) return;
+      const textToCopy = screenEl.textContent;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(textToCopy);
+      }
+      const copyBtn = document.querySelector('.calc-copy-btn');
+      if (copyBtn) {
+        const originalText = copyBtn.innerHTML;
+        copyBtn.innerHTML = '<i class="fa-solid fa-check" style="color:#10b981;"></i> Copied!';
+        setTimeout(() => { copyBtn.innerHTML = originalText; }, 1500);
+      }
+    }
+
+    function handleCalcKeyboard(e) {
+      if (!document.getElementById('calc-modal-overlay')) return;
+      if (e.key >= '0' && e.key <= '9') calcAction(e.key);
+      else if (e.key === '.') calcAction('.');
+      else if (e.key === '+') calcAction('+');
+      else if (e.key === '-') calcAction('-');
+      else if (e.key === '*') calcAction('×');
+      else if (e.key === '/') { e.preventDefault(); calcAction('÷'); }
+      else if (e.key === '%') calcAction('%');
+      else if (e.key === 'Enter' || e.key === '=') { e.preventDefault(); calcAction('='); }
+      else if (e.key === 'Backspace') calcAction('DEL');
+      else if (e.key === 'Escape') toggleQuickCalcModal();
+    }
+
+    /* Secondary Container Footer Tabs Logic */
+    function switchFooterTab(tabId, btn) {
+      document.querySelectorAll('.footer-tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.footer-tab-pane').forEach(p => p.classList.remove('active'));
+      
+      if (btn) btn.classList.add('active');
+      const targetPane = document.getElementById('tab-' + tabId);
+      if (targetPane) targetPane.classList.add('active');
+    }
+
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      showCustomModal({
+        title: 'Message Sent!',
+        message: 'Thank you for reaching out! Your message has been submitted successfully.',
+        icon: 'fa-circle-check',
+        confirmText: 'OK',
+        type: 'alert'
+      });
+      e.target.reset();
+    }
+
+    // PWA Service Worker Registration from GitHub Pages
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('https://Suraj-011.github.io/cash-tally-pwa/sw.js')
+          .then((reg) => console.log('[PWA] Service Worker registered:', reg.scope))
+          .catch((err) => console.warn('[PWA] Service Worker registration failed:', err));
+      });
+    }
+
+    // PWA Install Prompt Handler
+    let deferredPrompt;
+    const installBtn = document.getElementById('installPwaBtn');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      if (installBtn) installBtn.style.display = 'flex';
+    });
+
+    function installPWA() {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('[PWA] User installed the app');
+        }
+        deferredPrompt = null;
+        if (installBtn) installBtn.style.display = 'none';
+      });
+    }
+
+    window.onload = function() {
+      loadFromLocalStorage();
+      displayDateTime();
+      updateHistoryUI();
+      updateCharts();
+
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        document.body.dataset.theme = savedTheme;
+      }
+    };
+  </script>
+</body>
+</html>
