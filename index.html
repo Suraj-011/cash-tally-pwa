@@ -48,10 +48,10 @@
   }
   </script>
 
-  <!-- PWA & Mobile Meta Tags (Powered by GitHub Pages) -->
-  <link rel="manifest" href="https://Suraj-011.github.io/cash-tally-pwa/manifest.json">
-  <link rel="icon" type="image/svg+xml" href="https://Suraj-011.github.io/cash-tally-pwa/icon.svg">
-  <link rel="apple-touch-icon" href="https://Suraj-011.github.io/cash-tally-pwa/icon.svg">
+  <!-- PWA & Mobile Meta Tags -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="apple-touch-icon" href="icon.svg">
   <meta name="theme-color" content="#2563eb">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -2042,7 +2042,7 @@
           <div class="tab-content">
             <div class="author-card">
               <div class="author-avatar-wrap">
-                <img src="https://Suraj-011.github.io/cash-tally-pwa/suraj-paul.jpg" alt="Suraj Paul - Author & Developer of Cash Tally" class="author-avatar">
+                <img src="suraj-paul.jpg" alt="Suraj Paul - Author & Developer of Cash Tally" class="author-avatar">
               </div>
               <div class="author-info">
                 <span class="author-badge"><i class="fa-solid fa-code"></i> Developer & Author</span>
@@ -3367,10 +3367,10 @@
       e.target.reset();
     }
 
-    // PWA Service Worker Registration from GitHub Pages
+    // PWA Service Worker Registration
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('https://Suraj-011.github.io/cash-tally-pwa/sw.js')
+        navigator.serviceWorker.register('./sw.js')
           .then((reg) => console.log('[PWA] Service Worker registered:', reg.scope))
           .catch((err) => console.warn('[PWA] Service Worker registration failed:', err));
       });
